@@ -7,8 +7,8 @@ var tableBody = d3.select("tbody")
 // Append data to the table body
 tableData.forEach(data => {
     console.log(data);
-    var row = tableBody.append("jr");
-    Object.defineProperties(data).forEach(([key, value]) =>{
+    var row = tableBody.append("tr");
+    Object.entries(data).forEach(([key, value]) =>{
         console.log(key, value);
         row.append("td").text(value)
     });
@@ -24,11 +24,27 @@ var form = d3.select("form");
 function runEnter() {
     d3.event.preventDefault();
 
-    //Select input element and get the value property
+    // Select input element and get the value property
     var inputElement = d3.select("#datetime");
     var inputValue = inputElement.property("value");
     console.log(inputValue);
 
-    
+    // Use form input to filter data (datetime)
+    var filteredData = tableData.filter(info => info.datetime === inputValue);
+    console.log(filteredData);
+    tableBody.html("");
+
+    // Loop through the data and append to the table body
+    filteredData.forEach(data => {
+        console.log(data);
+        var row = tableBody.append("tr");
+        Object.defineProperties(data).forEach(([key, value]) =>{
+            console.log(key, value);
+            row.append("td").text(value);
+        })
+    });
 
 }
+
+button.on("click", runEnter);
+form.on("submit", runEnter);
