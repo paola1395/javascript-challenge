@@ -38,7 +38,7 @@ function runEnter() {
     filteredData.forEach(data => {
         console.log(data);
         var row = tableBody.append("tr");
-        Object.defineProperties(data).forEach(([key, value]) =>{
+        Object.entries(data).forEach(([key, value]) =>{
             console.log(key, value);
             row.append("td").text(value);
         })
